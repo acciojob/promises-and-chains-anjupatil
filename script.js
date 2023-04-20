@@ -1,10 +1,11 @@
 //your JS code here. If required.
+const form=document.getElementById("form")
 const btn=document.getElementById("btn")
 let name=document.getElementById('name')
 let age=document.getElementById('age')
 
 
-	btn.addEvenListener("click",(event)=>{
+btn.addEvenListener("click",(event)=>{
 		event.preventDefault();
 		//check if inputs are not empty
 		if(!name.value || !age.value)
