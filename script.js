@@ -1,32 +1,24 @@
-//your JS code here. If required.
-const form=document.getElementById("form")
-const btn=document.getElementById("btn")
-let name=document.getElementById('name')
-let age=document.getElementById('age')
+const nameInput = document.getElementById('name');
+const ageInput = document.getElementById('age');
+const submitBtn = document.getElementById('btn');
 
+submitBtn.addEventListener('click', (event) => {
+  event.preventDefault(); 
+  const delayPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Number(ageInput.value) >= 18) {
+        resolve({ name: nameInput.value, age: Number(ageInput.value) });
+      } else {
+        reject({ name: nameInput.value });
+      }
+    }, 4000);
+  });
 
-btn.addEvenListener("click",(event)=>{
-		event.preventDefault();
-		//check if inputs are not empty
-		if(!name.value || !age.value)
-		{
-			alert("Please fill out all details")
-			return
-		}
-
-		age=Number(age)
-		const promise=new Promise((resolve,reject)=>{
-			setTimeout(()=>{
-				if(age>=18){
-					alert(`Welcome, ${name}. You can vote`)
-				    resolve();
-				}
-				else{
-					alert(`Oh sorry ${name}. You aren't old enough.`);
-                    reject();
-					
-				}
-			},4000)
-		})
-		form.reset()
-	})
+  delayPromise
+    .then((data) => {
+      alert(`Welcome, ${data.name}. You can vote.`);
+    })
+    .catch((error) => {
+      alert(`Oh sorry ${error.name}. You aren't old enough.`);
+    });
+});
